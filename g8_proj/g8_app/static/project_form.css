@@ -1,0 +1,53 @@
+/* Ensure collapsible sections show only 3 rows initially */
+.checkbox-group {
+    /* max-height: 4.5em; Adjust as necessary to show 3 rows */
+    /* overflow: hidden; */
+    position: relative;
+    /* transition: max-height 0.3s ease; */
+}
+
+.show-all:checked + .checkbox-group {
+    max-height: none;
+}
+
+.show-all:checked ~ .show-all-label { 
+    display: none; 
+}
+
+.show-all:checked ~ .show-less-label { 
+    display: block; 
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 200px; /* Adjust width as necessary */
+    vertical-align: top;
+    margin-bottom: 0.5em;
+}
+
+.form-group .checkbox-group, 
+.form-group input[type="text"], 
+.form-group textarea {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 210px); /* Adjust to match label width */
+    box-sizing: border-box;
+}
+
+.show-all-label {
+    display: block;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.show-less-label {
+    display: none;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}

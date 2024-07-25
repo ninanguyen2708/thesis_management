@@ -1,0 +1,58 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Approved List</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Dashboard</h1>
+
+    <h2>Approved List ({{ approved_list_count }})</h2>
+    {% if approved_list_count <= 0 %}
+        <p>No projects approved yet.</p>
+    {% endif %}
+    <div class="card_container">
+        {% if expressions_of_interest %}
+        <ul>
+            {% for project_data in projects_with_group_counts %}
+                <li>
+                    <a href="{% url 'project_group_list' project_id=project_data.project__topic_number %}">{{ project_data.project__title }}</a>
+                    ({{ project_data.project__group_count }} group{{ project_data.project__group_count|pluralize }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No approved expressions of interest yet.</p>
+    {% endif %}
+    {% if expressions_of_interest %}
+    {% for expression in expressions_of_interest %}
+            <article class="card">
+                <header>
+                    <h3 class="card_title">
+                        <a href="{% url 'project_group_list' project_id=expression.project.topic_number %}">{{ expression.project.title }}</a>
+                        <br>
+                        ({{ expression.project.group_count }} group{{ expression.project.group_count|pluralize }})
+                    </h3>
+                </header>
+                <p class="ellipsis">
+                    {{ expression.project.description }}
+                </p>
+                <footer>
+                    <p class="card_supervisor"><em>{{ expression.member_names }}</em></p>
+                    <a href="{% url 'projDetails' id=expression.project.topic_number %}" class="btn">Learn More</a>
+                </footer>
+            </article>
+            
+    {% endfor %}
+    {% endif %}
+    </div>
+
+{% endblock webpage %}
+
+

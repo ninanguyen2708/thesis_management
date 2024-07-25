@@ -1,0 +1,26 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Pending Project Deletion Requests</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Pending Project Deletion Requests</h1>
+
+    {% if delete_requests %}
+        <ul>
+        {% for request in delete_requests %}
+            <li>
+                <strong>{{ request.project.title }}</strong> requested by {{ request.created_by.username }}
+                <form method="post" action="{% url 'approve_project_delete_request' delete_request_id=request.id %}">
+                    {% csrf_token %}
+                    <button type="submit" name="approve">Approve</button>
+                    <button type="submit" name="reject">Reject</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending deletion requests.</p>
+    {% endif %}
+{% endblock content %}

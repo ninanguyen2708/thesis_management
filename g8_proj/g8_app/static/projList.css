@@ -1,0 +1,87 @@
+.filterBody {
+    margin: 15px;
+}
+
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-width: 220px;
+    justify-content: space-between;
+    margin: 15px;
+    padding: 20px;
+    border: 1px solid #3E885B;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px black;
+    background-color: #eff3e5;
+}
+
+.card_title {
+    font-size: 1.5rem;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+.ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card_supervisor {
+    font-size: 0.9rem;
+    color: black;
+    border-top: 1px solid black;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #2f724a;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #2F4B26;
+}
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination .links {
+    display: inline-block;
+}
+
+.pagination .links a {
+    padding: 5px 10px;
+    margin: 0 2px;
+    background-color: white;
+    border: #081803 1px solid;
+    border-radius: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.pagination .links a:hover {
+    background-color: rgb(12, 32, 23);
+    color: white;
+}

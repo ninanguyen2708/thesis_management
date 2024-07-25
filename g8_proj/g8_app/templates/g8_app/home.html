@@ -1,0 +1,19 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Home Page</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static './home.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <div class="intro">
+        <h1>Welcome to the Thesis Project Management System</h1>
+        <p>This system is designed to streamline the process of managing and selecting thesis projects for students at Charles Darwin University. Here, students can browse available projects, submit their preferences and get the details they need to start their research journey.</p>
+        <p>Navigate through our project listings or learn more about how the system works and who's behind it by using the navigation bar at the top of the page.</p>
+    </div>
+{% endblock webpage %}

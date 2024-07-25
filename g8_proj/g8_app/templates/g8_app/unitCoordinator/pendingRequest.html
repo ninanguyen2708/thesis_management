@@ -1,0 +1,20 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Appilcation</title>
+{% endblock title %}
+
+{% block webpage %}
+    
+    <ul>
+        {% for edit_request in edit_requests %}
+            <li>
+                <a href="{% url 'approve_project_edit' edit_request.id %}">{{ edit_request.project.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock webpage %}
+
+

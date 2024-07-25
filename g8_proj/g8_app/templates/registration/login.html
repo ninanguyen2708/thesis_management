@@ -1,0 +1,52 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+
+{% load static %}
+
+{% block cssFile %}
+    <link href="{% static './registration/login.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <center>
+        <h2>Sign in with your account</h2> 
+        <p>Testing</p>
+        <h3>Students:</h3>
+            {% for m in mem %}
+            <p>username: {{ m }} - pw: studentpassword</p>
+            {% endfor %}
+        <h3>Supervisors:</h3>
+            {% for s in sup %}
+            <p>username: {{s}} - pw: supervisorpassword</p>
+            {% endfor %}
+        <h3>Unit Coordinator:</h3>
+        <p>username: coordinator - pw: coordinatorpassword</p>
+        <h3>Admin:</h3>
+        <p>username: admin - pw: admin</p>
+    </center>
+    
+    <form method="post">
+    {% csrf_token %}
+    <section class="auth__form">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+    </section>
+
+    {% if error %}
+        <center><p>{{ error }}</p></center>
+    {% endif %}
+    
+    <center>
+        <button type="submit">Log in</button>
+    </center>
+    </form>
+{% endblock webpage %}

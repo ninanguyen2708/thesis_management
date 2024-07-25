@@ -1,0 +1,59 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Dashboard</h1>
+
+    <h2>Waiting List ({{ waiting_list_count }})</h2>
+    {% if expressions_of_interest %}
+        <div class="card-container">
+        {% for expression in expressions_of_interest %}
+            <article class="card">
+                <header>
+                    <h3 class="card_title">{{ expression.project.title }}</h3>
+                </header>
+                <p class="ellipsis">
+                    {{ expression.project.description }}
+                </p>
+                <footer>
+                    <p class="card_supervisor"><em>{{ expression.project.supervisor.name }}</em></p>
+                    <p>Members: {{ expression.member_names }}</p>
+                    <a href="{% url 'projDetails' id=expression.project.topic_number %}" class="btn">Learn More</a>
+                    {% if user.is_student %}
+                        <form method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="expression_id" value="{{ expression.id }}">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                    {% elif user.is_supervisor %}
+                        <form method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="expression_id" value="{{ expression.id }}">
+                            
+                            {% if expression.project.group_count < 2 %}
+                                <button type="submit" name="action" value="approve" class="btn">Approve</button>
+                            {% endif %}
+                            <button type="submit" name="action" value="reject" class="btn">Reject</button>
+                        </form>
+                    {% endif %}
+                </footer>
+                
+            </article>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No expressions of interest submitted yet.</p>
+    {% endif %}
+
+{% endblock webpage %}
+
+

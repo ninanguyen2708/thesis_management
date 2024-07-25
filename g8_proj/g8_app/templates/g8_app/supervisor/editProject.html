@@ -1,0 +1,23 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Edit Project</title>
+{% endblock title %}
+
+{% block webpage %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Edit Request</button>
+        {% if no_changes %}
+            <p>{{ no_changes }}</p>
+        {% endif %}
+
+        {% if user.is_unit_coordinator %}
+        <form method="post" action="{% url 'approve_project_edit' edit_request_id=edit_request.id %}">
+            {% csrf_token %}
+            <button class="btn" type="submit" name="action" value="approve">Approve</button>
+        </form>
+        {% endif %}
+    </form>
+{% endblock webpage %}

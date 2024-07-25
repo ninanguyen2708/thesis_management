@@ -1,0 +1,62 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>About</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static './about.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Group 8 Member Information</h1>
+    <br>
+    <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Student ID</th>
+            <th>Preferred Email Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in mem %}
+            <tr>
+              <td>{{ i.name }} 
+                {% if i.nick %}
+                  ({{ i.nick }})
+                {% endif %}
+              </td>
+              <td>s{{ i.id }}</td>
+              <td>s{{i.id}}@students.cdu.edu.au</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      <div class="cont">
+        {% for i in mem %}
+          <div class="content_box">
+              <h2>{{i.name}}</h2>
+              <p><strong>Nickname:</strong> 
+                {% if i.nick %}
+                {{ i.nick }}
+                {% else %}
+                N/A
+                {% endif %}
+              </p>
+              <p><strong>Student ID:</strong> s{{i.id}}</p>
+              <p><strong>Email:</strong> s{{i.id}}@students.cdu.edu.au</p>
+              <p><strong>Course:</strong> {{i.course}}</p>
+          </div>
+        {% endfor %}
+    </div>
+    
+{% endblock webpage %}
+
+
+
+
+

@@ -1,0 +1,103 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Project List</title>
+{% endblock title %}
+
+{% block cssFile %}
+<link href="{% static './projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+<section class="filterBody">
+    <form method="get" action="{% url 'projList' %}">
+        <fieldset>
+            <legend>Project Filter</legend>
+            Location:
+            <select name="location">
+                <option value="">--Select a location--</option>
+                {% for location in loc %}
+                <option value="{{ location.name }}" {% if location.name == selLoc %}selected{% endif %}>
+                    {{ location.name }}
+                </option>
+                {% endfor %}
+            </select>
+            Department:
+            <select name="department">
+                <option value="">--Select a department--</option>
+                {% for department in dep %}
+                <option value="{{ department.name }}" {% if department.name == selDep %}selected{% endif %}>
+                    {{ department.name }}
+                </option>
+                {% endfor %}
+            </select>
+            Category:
+            <select name="category">
+                <option value="">--Select a category--</option>
+                {% for category in cat %}
+                <option value="{{ category.name }}" {% if category.name == selCat %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+            Supervisor:
+            <select name="supervisor">
+                <option value="">--Select a supervisor--</option>
+                {% for supervisor in sup %}
+                <option value="{{ supervisor.username }}" {% if supervisor.username == selSup %}selected{% endif %}>
+                    {{ supervisor.name }}
+                </option>
+                {% endfor %}            
+            </select>
+            <button type="submit">Filter</button>
+        </fieldset>
+    </form>
+
+    {% if projects %}
+    <div class="card_container">
+        {% for proj in projects %}
+        <article class="card">
+            <header>
+                <h3 class="card_title">{{ proj.title }}</h3>
+                <h4>({{ proj.group_count }} group{% if proj.group_count > 1 %}s{%endif%})</h4>
+            </header>
+            <p class="ellipsis">
+                {{ proj.description }}
+            </p>
+            <footer>
+                <p class="card_supervisors">
+                    <em>{{ proj.supervisors.name }}</em>
+                </p>                
+                <a href="{% url 'projDetails' id=proj.topic_number %}" class="btn">Learn More</a>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <span class="links">
+            {% if projects.has_previous %}
+                <a href="?page=1&location={{ selLoc }}&department={{ selDep }}&category={{ selCat }}&supervisor={{ selSup }}">« First</a>
+                <a href="?page={{ projects.previous_page_number }}&location={{ selLoc }}&department={{ selDep }}&category={{ selCat }}&supervisor={{ selSup }}">Prev</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ projects.number }} of {{ projects.paginator.num_pages }}
+            </span>
+    
+            {% if projects.has_next %}
+                <a href="?page={{ projects.next_page_number }}&location={{ selLoc }}&department={{ selDep }}&category={{ selCat }}&supervisor={{ selSup }}">Next</a>
+                <a href="?page={{ projects.paginator.num_pages }}&location={{ selLoc }}&department={{ selDep }}&category={{ selCat }}&supervisor={{ selSup }}">Last »</a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% else %} <!-- no project found in both location and department -->
+    <p>No project found.</p>
+
+    {% endif %}
+
+</section>
+{% endblock webpage %}

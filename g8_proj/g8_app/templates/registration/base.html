@@ -1,0 +1,27 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    {% endblock title %}
+    <link href="{% static './registration/styles.css' %}" rel="stylesheet">
+    {% block cssFile %}
+    {% endblock cssFile %}
+</head>
+<body>
+    <header>
+        <p>Sign in to access Thesis Management System</p>
+        <center>
+            <h1>Group 8</h1>
+        </center>
+    </header>
+
+    <div>
+        {% block webpage %}
+        {% endblock webpage %}
+    </div>
+</body>
+</html>

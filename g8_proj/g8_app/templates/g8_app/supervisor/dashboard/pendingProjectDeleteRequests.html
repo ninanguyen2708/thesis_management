@@ -1,0 +1,50 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Pending Project Deletion Requests</title>
+{% endblock title %}
+
+{% load static %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Dashboard</h1>
+
+    <h2>Request Project Deletion ({{ deleting_list_count }})</h2>
+    {% if delete_requests %}
+    <div class="card-container">
+        {% for request in delete_requests %}
+            <article class="card">
+                <header>
+                    <h3 class="card_title">
+                        {{ request.project.title }}
+                    </h3>
+                </header>
+                <p>Requested By: {{ request.created_by.username }}</p>
+                <p>Status: {{ request.status }}</p>
+                <footer>
+                    {% if user.is_supervisor %}
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_id" value="{{ request.id }}">
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                    {% elif user.is_unit_coordinator %}
+                        <form method="post" action="{% url 'approve_project_delete_request' delete_request_id=request.id %}">
+                            {% csrf_token %}
+                            <button class="btn" type="submit" name="approve">Approve</button>
+                            <button class="btn" type="submit" name="reject">Reject</button>
+                        </form>
+                    {% endif %}
+                </footer>
+                
+            </article>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No pending deletion requests.</p>
+    {% endif %}
+{% endblock webpage %}

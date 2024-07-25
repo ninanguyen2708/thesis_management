@@ -1,0 +1,15 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Confirm Delete Project</title>
+{% endblock title %}
+
+{% block webpage %}
+    <h1>Confirm Delete Project</h1>
+    <p>Are you sure you want to delete the project titled "{{ project.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+        <a href="{% url 'projList' %}">Cancel</a>
+    </form>
+{% endblock webpage %}

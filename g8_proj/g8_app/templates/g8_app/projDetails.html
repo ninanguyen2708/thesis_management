@@ -1,0 +1,98 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Project Details</title>
+{% endblock title %}
+
+{% load static %}
+
+{% block cssFile %}
+    <link href="{% static './projDetails.css' %}" rel="stylesheet">
+    <link href="{% static './projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    {% if project %}
+        <h1>{{ project.title }} ({{ project.group_count }} group{{ project.group_count|pluralize}})</h1>
+        <!-- ------button------ -->
+        {% if user.is_student and project.group_count < 2 %}
+        <a class="btn" href="{% url 'submit_expression_of_interest' project_id=project.topic_number %}">Submit Expression of Interest</a>
+        {% elif user.is_supervisor %}
+        <a class="btn" href="{% url 'edit_project' project_id=project.topic_number %}">Edit Project</a>
+        <form method="post" action="{% url 'request_project_delete' project_id=project.topic_number %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn">Request Deletion</button>
+        </form>        {% endif %}
+        <!-- ------end of button------ -->
+        <h2>Category:
+        {% for cat in project.category.all %}
+            {{ cat.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </h2>
+
+        <h3>Topic Number: {{ project.topic_number }}</h3>
+
+        <p>{{ project.description }}</p>
+        <!-- bullet points ideas -->
+        {% if bullet_points %}
+            <ul>
+                {% for item in bullet_points %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>Supervisors:
+            <em>{{ project.supervisors }}</em>
+        </p>
+        <!-- CampusLocation -->
+        <h2>Campus location </h2>
+        <section class="location">
+            <table>
+                <tr>
+                    <th>Location</th>
+                    <th>Value</th>
+                </tr>
+                {% for l in loc %}
+                    <tr>
+                        <td>{{ l.name }}</td>
+                        <td>
+                            {% if l in project.locations.all %}
+                                Yes
+                            {% endif %}
+                        </td>     
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </section>
+
+        <br>
+
+        <h2>Department Criteria</h2>
+        <section class="criteria">
+            <table>
+                <tr>
+                    <th>Department</th>
+                    <th>Value</th>
+                </tr>
+                {% for d in dep %}
+                    <tr>
+                        <td>{{ d.name }}</td>
+                        <td>
+                            {% if d in project.departments.all %}
+                                Yes
+                            {% endif %}            
+                        </td>
+                    </tr>            
+                {% endfor %}
+            </table>
+        </section>
+    {% endif %}        
+{% endblock webpage %}
+
+<!-- projDetails.html -->
+
+
+
+

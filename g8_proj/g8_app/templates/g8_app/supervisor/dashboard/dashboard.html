@@ -1,0 +1,58 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Supervisor Dashboard</h1>
+
+    <div class="card_container">
+        <article class="card">
+            <header>
+                <h3 class="card_title">Project Waiting List ({{ waiting_list_count }})</h3>
+            </header>
+            <p class="ellipsis">
+                Waiting for supervisor to agree to supervise your project.
+            </p>
+            <a href="{% url 'waiting_list' %}" class="btn">Open</a>
+        </article>
+
+        <article class="card">
+            <header>
+                <h3 class="card_title">Approved Project List ({{ approved_list_count }})</h3>
+            </header>
+            <p class="ellipsis">
+                Projects which are approved by supervisors and unit coordinators.
+            </p>
+            <a href="{% url 'approved_list' %}" class="btn">Open</a>
+        </article>
+        <article class="card">
+            <header>
+                <h3 class="card_title">Pending Edit ({{ pending_list_count }})</h3>
+            </header>
+            <p class="ellipsis">
+                Waiting for the unit coordinator to approve the project's information changes.
+            </p>
+            <a href="{% url 'pending_project_edit_list' %}" class="btn">Open</a>
+        </article>
+
+        <article class="card">
+            <header>
+                <h3 class="card_title">Request Delete Project List ({{ deleting_list_count }})</h3>
+            </header>
+            <p class="ellipsis">
+                Waiting for the unit coordinator to approve the project deleting's request.
+            </p>
+            <a href="{% url 'pending_project_delete_requests' %}" class="btn">Open</a>
+        </article>
+    </div>
+{% endblock webpage %}
+
+

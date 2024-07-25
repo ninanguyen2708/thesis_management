@@ -1,0 +1,36 @@
+.location {
+    width:100%;
+    margin-top:20px;
+}
+
+.criteria {
+    width:100%;
+    margin-top: 20px;
+}
+
+.location, .criteria {
+    border-collapse: collapse;
+}
+
+.location th,
+.location td,
+.criteria th,
+.criteria td {
+    border: 1px solid black; 
+}
+
+.location th {
+    width: 50%; 
+}
+
+.location td,
+.criteria td {
+    padding: 8px; 
+    border: 1px solid #ddd; 
+}
+
+.location tr:hover,
+.criteria tr:hover {
+    background-color: #f2f2f2; 
+}
+

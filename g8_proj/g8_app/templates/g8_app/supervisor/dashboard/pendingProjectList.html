@@ -1,0 +1,56 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Edit Request</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Dashboard</h1>
+
+    <h2>Pending Edit ({{ pending_list_count }})</h2>
+    {% if edit_requests %}
+        <div class="card-container">
+        {% for edit in edit_requests %}
+            <article class="card">
+                <header>
+                    <h3 class="card_title">
+                        <a href="{% url 'pending_project_edit_detail' edit_request_id=edit.id %}">{{ edit.project.title }}</a>
+                    </h3>
+                </header>
+                <footer>
+                    {% if user.is_supervisor %}
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="edit_id" value="{{ edit.id }}">
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                    {% elif user.is_unit_coordinator %}
+                    <form method="post" action="{% url 'approve_project_edit' edit_request_id=edit.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="approve">
+                        <button class="btn" type="submit">Approve</button>
+                    </form>
+                    <form method="post" action="{% url 'approve_project_edit' edit_request_id=edit.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="reject">
+                        <button class="btn" type="submit">Reject</button>
+                    </form>
+                    {% endif %}
+                </footer>
+                
+            </article>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No expressions of interest submitted yet.</p>
+    {% endif %}
+
+{% endblock webpage %}
+
+

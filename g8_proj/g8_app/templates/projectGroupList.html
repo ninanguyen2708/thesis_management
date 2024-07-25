@@ -1,0 +1,22 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Project Groups</title>
+{% endblock title %}
+
+{% block webpage %}
+    <h1>{{ project.title }}</h1>
+
+    <h2>Assigned Groups</h2>
+    {% if groups %}
+        <ul>
+            {% for group in groups %}
+                <li>
+                    <p>{{ group.member_names }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No groups assigned to this project yet.</p>
+    {% endif %}
+{% endblock webpage %}

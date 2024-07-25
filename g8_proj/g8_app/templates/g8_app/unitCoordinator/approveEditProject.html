@@ -1,0 +1,14 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Edit Project</title>
+{% endblock title %}
+
+{% block webpage %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="approve">Approve</button>
+        <button type="submit" name="reject">Reject</button>
+    </form>
+{% endblock webpage %}

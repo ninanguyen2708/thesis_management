@@ -1,0 +1,45 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Student Dashboard</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static './projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <h1>Student Dashboard</h1>
+
+    <div class="card_container">
+        {% if expressions_of_interest %}
+        <ul>
+        <li>{{ expression.project.title }}</li>
+        {% endfor %}
+    </ul>
+    {% for expression in expressions_of_interest %}
+        {% if expressions_of_interest %}
+            <article class="card">
+                <header>
+                    <h3 class="card_title">{{ expression.project.title }}</h3>
+                </header>
+                <p class="ellipsis">
+                    {{ expression.project.description }}
+                </p>
+                <footer>
+                    <p class="card_supervisor"><em>{{ expression.project.supervisor.name }}</em></p>
+                    <a href="{% url 'projDetails' id=expression.project.topic_number %}" class="btn">Learn More</a>
+                </footer>
+            </article>
+        {% endif %}
+        {% else %}
+            <p>No expressions of interest submitted yet.</p>
+        {% endif %}    
+    {% endfor %}
+    </div>
+
+{% endblock webpage %}
+
+

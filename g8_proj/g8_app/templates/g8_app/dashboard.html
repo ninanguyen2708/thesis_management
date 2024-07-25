@@ -1,0 +1,18 @@
+{% extends 'g8_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock title %}
+
+{% block cssFile %}
+    <link href="{% static 'projList.css' %}" rel="stylesheet">
+{% endblock cssFile %}
+
+{% block webpage %}
+    <p>You are not allowed to access this sesstion.</p>
+    <a href="{% url 'home' %}" class="btn">Return back Home</a>
+{% endblock webpage %}
+
+

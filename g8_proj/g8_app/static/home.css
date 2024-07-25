@@ -1,0 +1,14 @@
+.intro {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+  
+.intro h1 {
+    color: blue;
+    margin-bottom: 10px;
+}
+  
+.intro p {
+    line-height: 1.5;
+}

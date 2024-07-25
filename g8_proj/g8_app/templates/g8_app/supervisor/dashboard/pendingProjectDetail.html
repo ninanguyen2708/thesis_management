@@ -1,0 +1,55 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Pending Project Changes</title>
+{% endblock title %}
+
+{% block webpage %}
+    <h1>Pending Project Changes</h1>
+
+    <h2>Project: {{ edit_request.project.title }}</h2>
+
+    <h3>Proposed Changes:</h3>
+    <ul>
+        {% if edit_request.new_title != edit_request.project.title %}
+            <li><strong>Title:</strong> {{ edit_request.new_title }}</li>
+        {% endif %}
+        {% if edit_request.new_description != edit_request.project.description %}
+            <li><strong>Description:</strong> {{ edit_request.new_description }}</li>
+        {% endif %}
+        {% if edit_request.new_supervisor != edit_request.project.supervisors %}
+            <li><strong>Supervisor:</strong>
+                {{ supervisor.name }}
+            </li>
+        {% endif %}
+        {% if edit_request.new_category.all|join:", " != edit_request.project.category.all|join:", " %}
+            <li><strong>Category:</strong>
+                {% for category in edit_request.new_category.all %}
+                    {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
+        {% endif %}
+        {% if edit_request.new_locations.all|join:", " != edit_request.project.locations.all|join:", " %}
+            <li><strong>Locations:</strong>
+                {% for location in edit_request.new_locations.all %}
+                    {{ location.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
+        {% endif %}
+        {% if edit_request.new_departments.all|join:", " != edit_request.project.departments.all|join:", " %}
+            <li><strong>Departments:</strong>
+                {% for department in edit_request.new_departments.all %}
+                    {{ department.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
+        {% endif %}
+    </ul>
+
+    {% if user.is_unit_coordinator %}
+    <form method="post" action="{% url 'approve_project_edit' edit_request_id=edit_request.id %}">
+        {% csrf_token %}
+        <button class="btn" type="submit" name="action" value="approve">Approve</button>
+        <button class="btn" type="submit" name="action" value="reject">Reject</button>
+    </form>
+    {% endif %}
+{% endblock webpage %}

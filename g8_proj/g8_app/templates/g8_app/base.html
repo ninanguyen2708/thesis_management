@@ -1,0 +1,56 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    {% endblock title %}
+    <link href="{% static './styles.css' %}" rel="stylesheet">
+    {% block cssFile %}
+    {% endblock cssFile %}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'projList' %}">Project List</a>
+            <a href="{% url 'about' %}">About</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}">Dashboard</a></li>
+            {% endif %}
+            {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}">Login</a>
+            {% else %}
+            <a href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div>
+        {% block webpage %}
+        {% endblock webpage %}
+    </div>
+
+    <div>
+        <br>
+        {% block CampusLocation %}
+        {% endblock CampusLocation %}
+        {% block location %}
+        {% endblock location%}
+        <br>
+        {% block DepartmentInformation %}
+        {% endblock DepartmentInformation %}
+        {% block information %}
+        {% endblock information %}
+    </div>
+    <hr>
+    <footer>
+        <h4>Contact Us</h4>
+        <p>Author: Group 8</p>
+        <p>Address: Charles Darwin University, Northern Territory</p>
+        <p>&copy; 2024 CDU. All rights reserved.</p>
+    </footer>
+</body>
+</html>

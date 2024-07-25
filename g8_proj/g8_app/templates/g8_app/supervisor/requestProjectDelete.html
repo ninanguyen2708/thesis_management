@@ -1,0 +1,17 @@
+{% extends 'g8_app/base.html' %}
+
+{% block title %}
+    <title>Deletion Request</title>
+{% endblock title %}
+
+{% block webpage %}
+    <h1>Deletion Request</h1>
+
+    <p>Are you sure you want to delete the project "{{ edit_request.project.title }}"?</p>
+        <form method="post" action="{% url 'request_project_delete' project_id=edit_request.id %}">
+            {% csrf_token %}
+            <button class="btn" type="submit" name="action" value="approve">Approve</button>
+            <button class="btn" type="submit" name="action" value="reject">Reject</button>
+        </form>
+    </form>
+{% endblock webpage %}
